@@ -20,8 +20,9 @@ from rest_framework import generics
 #         messages.error(request, "Unsuccessful registration. Invalid information.")
 #     form = RegistrationForm()
 #     return render (request=request, template_name="register.html", context={"register_form":form})
-class Register(generics.CreateAPIView):
+class Register(APIView):
     template_name = 'register.html'
+    serializer_class = ''
     form_class = RegistrationForm
     success_url = reverse_lazy('app.author')
 

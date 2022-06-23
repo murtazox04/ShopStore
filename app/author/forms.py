@@ -1,19 +1,12 @@
-from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from django.contrib.auth.models import User
+from .models import Customer
 
-from app.author.models import Customer
 
-class NewUserForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+class RegistrationForm(forms.ModelForm):
+    username = forms.CharField(widget=forms.TextInput())
+    password = forms.CharField(widget=forms.PasswordInput())
+    email = forms.EmailField()
 
     class Meta:
-        model = User
-        fields = ("username", "email", "password1", "password2")
-
-    def save(self, commit=True):
-        user = super(NewUserForm, self).save(commit=False)
-        user.email = self.cleaned_data['email']
-        if commit:
-            user.save()
-        return user
+        model = Customer
+        fields = '__all__'

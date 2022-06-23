@@ -37,11 +37,6 @@ class SingleView(ListView):
     def get_queryset(self):
         return Product.objects.get(id=self.kwargs.get('id'))
     
-class RegisterView(ListView):
-    model = Product
-    template_name = 'blog/register.html'
-    context_object_name = 'register'
-    
 class ProductListView(ListView):
     model = Product
     template_name = 'blog/products.html'

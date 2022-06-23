@@ -16,10 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
+from app.author import views
 from config import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.products.urls')),
-    path('register/', include('app.author.urls'))
+    path('register/', include('app.author.urls')),
+    path("login/", views.login_request, name="login"),
+    path("logout", views.logout_request, name= "logout"),
+    path('cart/', include('app.cart.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

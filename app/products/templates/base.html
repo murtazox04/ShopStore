@@ -29,6 +29,26 @@
         <!--bootstrap-js-->
         <script src="{% static 'js/bootstrap.min.js' %}"></script>
         <!--script-->
+
+        <script type="text/javascript">
+            var user = '{{ request.user }}'
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            const csrftoken = getCookie('csrftoken');
+        </script>
     </head>
     <body>
         <div class="header">
@@ -38,10 +58,19 @@
                         <a href="{% url 'index' %}">N-AIR</a>
                     </div>
                     <div class="login-bars">
-                        <a class="btn btn-default log-bar" href="{% url 'register' %}" role="button">Sign up</a>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="register/logout">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Welcome, {{user.username}}</a>
+                        </li>
+                        {% else %}
+                        <a class="btn btn-default log-bar" href="register" role="button">Sign up</a>
+                        {% endif %}
                         <form action="/search" method="get">
                             {% csrf_token %}
-                            <div class="form-group">
+                            <div class="search">
                                 <input type="text" class="form-control" name="search" id='{{ product.id }}' placeholder="Search here">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-search">Search</i></button>
                             </div>

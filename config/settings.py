@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'crispy_forms',
     'app.products',
-    'app.author'
+    'app.author',
+    'app.cart',
+    'app.orders'
 ]
 
 # AUTHENTICATION_BACKENDS = (

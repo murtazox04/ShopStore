@@ -4,7 +4,7 @@
 
 {% load crispy_forms_tags %}     
 
-<!--Register--> 
+{% comment %} <!--Register--> 
 <div class="container">
 	<h1>Register</h1>
 	<form method="POST">
@@ -12,7 +12,21 @@
 		{{ register_form|crispy }}                  
 		<button class="btn btn-primary" type="submit">Register</button>
 	</form>
-	<p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+	<p class="text-center">If you already have an account, <a href="login/">login</a> instead.</p>
+</div> {% endcomment %}
+{% load static %}
+{% block title %}Registration{% block title %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h3>Registration Form</h3><hr>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+            </form>
+        </div>
+    </div>
 </div>
+{% end block %}
 
 {% endblock %}
